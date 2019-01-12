@@ -17,8 +17,8 @@ function readInputFile(name, callback) {
             if(row.length > 0) {
                 const cells = row.split(' ').map((cell) => parseInt(cell));
                 if (index === 0) {
-                    const [rows, columns, vehicles, ridesCount, bonus, steps] = cells;
-                    Object.assign(file, {rows, columns, vehicles, ridesCount, bonus, steps});
+                    const [rows, columns, vehicleCount, ridesCount, bonus, steps] = cells;
+                    Object.assign(file, {rows, columns, vehicleCount, ridesCount, bonus, steps});
                 } else {
                     const [a, b, x, y, earliestStart, latestFinish] = cells;
                     file.rides.push({intersections: [[a, b], [x, y]], earliestStart, latestFinish});
@@ -29,7 +29,24 @@ function readInputFile(name, callback) {
     });
 }
 
-module.exports = {readInputFile};
+function writeOutputFile(name, vehicleRides, rides, callback) {
+    const vehicleRideIndexArrays = [];
+    vehicleRides.forEach((vehicleRide) => {
+        vehicleRideIndexArrays[vehicleRide.vehicle] = vehicleRideIndexArrays[vehicleRide.vehicle] || [];
+        vehicleRideIndexArrays[vehicleRide.vehicle].push(rides.indexOf(vehicleRide.ride));
+    });
+    let resultString = '';
+    vehicleRideIndexArrays.map((vehicleRideIndexArray, vehicleIndex) => {
+        resultString += `${vehicleRideIndexArray.length} ${vehicleRideIndexArray.join(' ')}\n`
+    })
+    fs.writeFile(`./files/output/${name}`, resultString, function (err, data) {
+        callback('success!');
+    });
+}
+
+
+
+module.exports = {readInputFile, writeOutputFile};
 
 
 

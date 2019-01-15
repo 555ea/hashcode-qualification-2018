@@ -7,7 +7,7 @@ function readInputFile(name, callback) {
         const file = {
             rows: 0,
             columns: 0,
-            vehicles: 0,
+            vehicleCount: 0,
             ridesCount: 0,
             bonus: 0,
             steps: 0,

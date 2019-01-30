@@ -1,0 +1,24 @@
+{
+  "name": "hashcode-qualification-2018",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/555ea/hashcode-qualification-2018.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/555ea/hashcode-qualification-2018/issues"
+  },
+  "homepage": "https://github.com/555ea/hashcode-qualification-2018#readme",
+  "dependencies": {
+    "kd-tree-javascript": "^1.0.3",
+    "lodash": "^4.17.11",
+    "static-kdtree": "^1.0.2"
+  }
+}

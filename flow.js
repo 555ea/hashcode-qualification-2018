@@ -4,7 +4,7 @@ const {readInputFile, writeOutputFile} = require('./input-output');
 const fileName = 'b_should_be_easy.in';
 
 readInputFile(fileName, (response) => {
-    let {rides, vehicleCount} = response;
+    let {rides, vehicleCount, bonus, steps} = response;
 
     // writeOutputFile(fileName, vehicleRides, originalRides, (writeResult) => {
     //     console.log(writeResult);

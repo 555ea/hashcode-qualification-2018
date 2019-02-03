@@ -30,10 +30,13 @@ function readInputFile(name, callback) {
 }
 
 function writeOutputFile(name, vehicleRides, rides, callback) {
+    if(!callback){
+        callback = rides;
+    }
     const vehicleRideIndexArrays = [];
     vehicleRides.forEach((vehicleRide) => {
         vehicleRideIndexArrays[vehicleRide.vehicle] = vehicleRideIndexArrays[vehicleRide.vehicle] || [];
-        vehicleRideIndexArrays[vehicleRide.vehicle].push(rides.indexOf(vehicleRide.ride));
+        vehicleRideIndexArrays[vehicleRide.vehicle].push(vehicleRide.rideIndex);
     });
     let resultString = '';
     vehicleRideIndexArrays.map((vehicleRideIndexArray, vehicleIndex) => {

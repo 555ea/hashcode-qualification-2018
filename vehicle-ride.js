@@ -12,7 +12,7 @@ const { max } = require('lodash');
     Math.abs(start.x - end.x) + Math.abs(start.y - end.y);
 
  const wait_time = (vehicleRide, ride) =>
-    max(0, ride.earliestStart - (vehicleRide.step + distance_to_ride_start(vehicleRide.ride.intersections[1], ride.intersections[0])));
+    Math.max(0, ride.earliestStart - (vehicleRide.step + distance_to_ride_start(vehicleRide.ride.intersections[1], ride.intersections[0])));
 
  const arrival = (vehicleRide, ride) =>
     vehicleRide.step
@@ -21,16 +21,16 @@ const { max } = require('lodash');
     + distance_to_ride_start(ride.intersections[0], ride.intersections[1]);
 
  const can_start_on_time = (vehicleRide, ride) =>
-    vehicleRide.step + distance_to_ride_start(vehicleRide, ride) <= ride.earliestStart;
+    vehicleRide.step + distance_to_ride_start(vehicleRide.ride.intersections[1], ride.intersections[0]) <= ride.earliestStart;
 
  const can_finish_in_time = (vehicleRide, ride, steps) =>
     !!arrival(vehicleRide, ride) <= Math.min(ride.latestFinish, steps);
 
- const assignRide = (vehicleRide, ride) => {
-    // self.assigned_rides.append(ride.rid)
-    const step_departure = Math.max(ride.earliestStart, vehicleRide.step + distance_to_ride_start(vehicleRide, ride))
+ const assign = (vehicleRide, ride) => {
+    vehicleRide.assigned_rides.push({...ride, vehicle: vehicleRide.vehicle});
+    const step_departure = Math.max(ride.earliestStart, vehicleRide.step + distance_to_ride_start(vehicleRide.ride.intersections[1], ride.intersections[0]))
     vehicleRide.step = step_departure + distance_to_ride_start(ride.intersections[0], ride.intersections[1])
     vehicleRide.ride = ride;
 };
 
-module.exports = {distance_object};
+module.exports = {distance_object, can_start_on_time, can_finish_in_time, assign, wait_time, distance_to_ride_start};
